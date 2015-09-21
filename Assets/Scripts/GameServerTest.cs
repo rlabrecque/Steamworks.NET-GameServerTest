@@ -33,50 +33,10 @@ public class GameServerTest : MonoBehaviour {
 	// UDP port for the master server updater to listen on
 	const ushort SPACEWAR_MASTER_SERVER_UPDATER_PORT = 27016;
 
-	/*
-
-	// How long to wait for a response from the server before resending our connection attempt
-	#define SERVER_CONNECTION_RETRY_MILLISECONDS 350
-
-	// How long to wait for a client to send an update before we drop its connection server side
-	#define SERVER_TIMEOUT_MILLISECONDS 5000
-
-	// Maximum packet size in bytes
-	#define MAX_SPACEWAR_PACKET_SIZE 1024*512
-
-	// Maximum number of players who can join a server and play simultaneously
-	#define MAX_PLAYERS_PER_SERVER 4
-
-	// Time to pause wait after a round ends before starting a new one
-	#define MILLISECONDS_BETWEEN_ROUNDS 4000
-
-	// How long photon beams live before expiring
-	#define PHOTON_BEAM_LIFETIME_IN_TICKS 1750
-
-	// How fast can photon beams be fired?
-	#define PHOTON_BEAM_FIRE_INTERVAL_TICKS 250
-
-	// Amount of space needed for beams per ship
-	#define MAX_PHOTON_BEAMS_PER_SHIP (PHOTON_BEAM_LIFETIME_IN_TICKS/PHOTON_BEAM_FIRE_INTERVAL_TICKS)
-
-	// Time to timeout a connection attempt in
-	#define MILLISECONDS_CONNECTION_TIMEOUT 30000
-
-	// How many times a second does the server send world updates to clients
-	#define SERVER_UPDATE_SEND_RATE 60
-
-	// How many times a second do we send our updated client state to the server
-	#define CLIENT_UPDATE_SEND_RATE 30
-
-	// How fast does the server internally run at?
-	#define MAX_CLIENT_AND_SERVER_FPS 86
-	*/
-
 	//
 	// Various callback functions that Steam will call to let us know about events related to our
 	// connection to the Steam servers for authentication purposes.
 	//
-
 	// Tells us when we have successfully connected to Steam
 	protected Callback<SteamServersConnected_t> m_CallbackSteamServersConnected;
 
@@ -93,7 +53,6 @@ public class GameServerTest : MonoBehaviour {
 	// Various callback functions that Steam will call to let us know about whether we should
 	// allow clients to play or we should kick/deny them.
 	//
-
 	// Tells us a client has been authenticated and approved to play by Steam (passes auth, license check, VAC status, etc...)
 	protected Callback<ValidateAuthTicketResponse_t> m_CallbackGSAuthTicketResponse;
 
