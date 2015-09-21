@@ -64,7 +64,7 @@ public class GameServerTest : MonoBehaviour {
 	public string m_strMapName = "Milky Way";
 	public int m_nMaxPlayers = 4;
 
-    bool m_bInitialized;
+	bool m_bInitialized;
 	bool m_bConnectedToSteam;
 	
 	private void OnEnable() {
@@ -77,8 +77,8 @@ public class GameServerTest : MonoBehaviour {
 		m_CallbackP2PSessionRequest = Callback<P2PSessionRequest_t>.CreateGameServer(OnP2PSessionRequest);
 		m_CallbackP2PSessionConnectFail = Callback<P2PSessionConnectFail_t>.CreateGameServer(OnP2PSessionConnectFail);
 
-        m_bInitialized = false;
-        m_bConnectedToSteam = false;
+		m_bInitialized = false;
+		m_bConnectedToSteam = false;
 
 #if USE_GS_AUTH_API
 		EServerMode eMode = EServerMode.eServerModeAuthenticationAndSecure;
@@ -148,16 +148,16 @@ public class GameServerTest : MonoBehaviour {
 	}
 	
 	private void Update() {
-        if(!m_bInitialized) {
-            return;
-        }
+		if(!m_bInitialized) {
+			return;
+		}
 
 		GameServer.RunCallbacks();
 
-        if(m_bConnectedToSteam) {
-            SendUpdatedServerDetailsToSteam();
-        }
-    }
+		if(m_bConnectedToSteam) {
+			SendUpdatedServerDetailsToSteam();
+		}
+	}
 
 	//-----------------------------------------------------------------------------
 	// Purpose: Take any action we need to on Steam notifying us we are now logged in
@@ -303,10 +303,10 @@ public class GameServerTest : MonoBehaviour {
 		// game type is a special string you can use for your game to differentiate different game play types occurring on the same maps
 		// When users search for this parameter they do a sub-string search of this string 
 		// (i.e if you report "abc" and a client requests "ab" they return your server)
-		//SteamGameServer()->SetGameType( "dm" );
+		//SteamGameServer.SetGameType( "dm" );
 
 		// update any rule values we publish
-		//SteamMasterServerUpdater()->SetKeyValue( "rule1_setting", "value" );
-		//SteamMasterServerUpdater()->SetKeyValue( "rule2_setting", "value2" );
+		//SteamGameServer.SetKeyValue( "rule1_setting", "value" );
+		//SteamGameServer.SetKeyValue( "rule2_setting", "value2" );
 	}
 }
