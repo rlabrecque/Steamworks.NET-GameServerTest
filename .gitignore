@@ -1,0 +1,13 @@
+.DS_Store
+Library/
+Temp/
+obj/
+.vs/
+*.csproj
+*.pidb
+*.unityproj
+*.sln
+*.userprefs
+*.suo
+
+/steam_appid.txt
