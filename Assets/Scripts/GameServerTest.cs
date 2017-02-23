@@ -15,7 +15,7 @@
 // - VAC cheat protection
 // - Game server matchmaking
 // as these function depend on using Steam authentication
-#define USE_GS_AUTH_API 
+#define USE_GS_AUTH_API
 
 using UnityEngine;
 using Steamworks;
@@ -66,7 +66,7 @@ public class GameServerTest : MonoBehaviour {
 
 	bool m_bInitialized;
 	bool m_bConnectedToSteam;
-	
+
 	private void OnEnable() {
 		m_CallbackSteamServersConnected = Callback<SteamServersConnected_t>.CreateGameServer(OnSteamServersConnected);
 		m_CallbackSteamServersConnectFailure = Callback<SteamServerConnectFailure_t>.CreateGameServer(OnSteamServersConnectFailure);
@@ -95,7 +95,7 @@ public class GameServerTest : MonoBehaviour {
 			Debug.Log("SteamGameServer_Init call failed");
 			return;
 		}
-		
+
 		// Set the "game dir".
 		// This is currently required for all games.  However, soon we will be
 		// using the AppID for most purposes, and this string will only be needed
@@ -106,18 +106,11 @@ public class GameServerTest : MonoBehaviour {
 		// See their documentation for more info
 		SteamGameServer.SetProduct("SteamworksExample");
 		SteamGameServer.SetGameDescription("Steamworks Example");
-		
-		/*
+
 		// We don't support specators in our game.
 		// .... but if we did:
 		//SteamGameServer.SetSpectatorPort( ... );
 		//SteamGameServer.SetSpectatorServerName( ... );
-
-		//SteamGameServer.SetDedicatedServer(true);
-		SteamGameServer.SetPasswordProtected(false);
-		SteamGameServer.SetMaxPlayerCount(4);
-		SteamGameServer.SetServerName("Test Server");
-		SteamGameServer.SetMapName("Test Map");*/
 
 		// Initiate Anonymous logon.
 		// Coming soon: Logging into authenticated, persistent game server account
@@ -146,7 +139,7 @@ public class GameServerTest : MonoBehaviour {
 
 		Debug.Log("Shutdown.");
 	}
-	
+
 	private void Update() {
 		if(!m_bInitialized) {
 			return;
@@ -171,7 +164,7 @@ public class GameServerTest : MonoBehaviour {
 		// Tell Steam about our server details
 		SendUpdatedServerDetailsToSteam();
 	}
-	
+
 	//-----------------------------------------------------------------------------
 	// Purpose: Called when an attempt to login to Steam fails
 	//-----------------------------------------------------------------------------
@@ -179,7 +172,7 @@ public class GameServerTest : MonoBehaviour {
 		m_bConnectedToSteam = false;
 		Debug.Log("SpaceWarServer failed to connect to Steam");
 	}
-	
+
 	//-----------------------------------------------------------------------------
 	// Purpose: Called when we were previously logged into steam but get logged out
 	//-----------------------------------------------------------------------------
@@ -187,7 +180,7 @@ public class GameServerTest : MonoBehaviour {
 		m_bConnectedToSteam = false;
 		Debug.Log("SpaceWarServer got logged out of Steam");
 	}
-	
+
 	//-----------------------------------------------------------------------------
 	// Purpose: Callback from Steam when logon is fully completed and VAC secure policy is set
 	//-----------------------------------------------------------------------------
@@ -200,7 +193,7 @@ public class GameServerTest : MonoBehaviour {
 		else {
 			Debug.Log("SpaceWarServer is not VAC Secure!");
 		}
-		
+
 		Debug.Log("Game server SteamID:" + SteamGameServer.GetSteamID().ToString());
 #endif
 	}
@@ -213,7 +206,7 @@ public class GameServerTest : MonoBehaviour {
 
 		if (pResponse.m_eAuthSessionResponse == EAuthSessionResponse.k_EAuthSessionResponseOK) {
 			// This is the final approval, and means we should let the client play (find the pending auth by steamid)
-			/* TODO Riley: 
+			/* TODO Riley: Disabled
 			for (uint i = 0; i < MAX_PLAYERS_PER_SERVER; ++i) {
 				if (!m_rgPendingClientData[i].m_bActive)
 					continue;
@@ -227,7 +220,7 @@ public class GameServerTest : MonoBehaviour {
 		}
 		else {
 			// Looks like we shouldn't let this user play, kick them
-			/* TODO Riley: 
+			/* TODO Riley: Disabled
 			for (uint i = 0; i < MAX_PLAYERS_PER_SERVER; ++i) {
 				if (!m_rgPendingClientData[i].m_bActive)
 					continue;
@@ -250,7 +243,7 @@ public class GameServerTest : MonoBehaviour {
 		// we'll accept a connection from anyone
 		SteamGameServerNetworking.AcceptP2PSessionWithUser(pCallback.m_steamIDRemote);
 	}
-	
+
 	//-----------------------------------------------------------------------------
 	// Purpose: Handle clients disconnecting
 	//-----------------------------------------------------------------------------
@@ -258,7 +251,7 @@ public class GameServerTest : MonoBehaviour {
 		Debug.Log("OnP2PSessionConnectFail Called steamIDRemote: " + pCallback.m_steamIDRemote); // Riley
 
 		// socket has closed, kick the user associated with it
-		/* TODO Riley: 
+		/* TODO Riley: Disabled
 		for (uint i = 0; i < MAX_PLAYERS_PER_SERVER; ++i) {
 			// If there is no ship, skip
 			if (!m_rgClientData[i].m_bActive)

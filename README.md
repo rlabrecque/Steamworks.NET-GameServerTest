@@ -8,10 +8,9 @@ It is recommended to follow along with SpaceWarServer.cpp/h found in the officia
 
 Steam must be running for the project to work out of the box. To run a dedicated server without Steam running you must copy steamclient.dll/tier0_s.dll/vstdlib_s.dll next to your steam_api.dll.
 
+This sample is available in the public domain (where acceptable.) Please view [LICENSE.txt](LICENSE.txt) for more details.
 
-This sample is licensed under the Public Domain (where acceptable.) Please view [LICENSE.txt](LICENSE.txt) for more details.
-
-This project was built with Unity 5.2.0. As such it is only expected to build and run without issue on Unity 5.2.0 or later.
+This project was built with Unity 5.5.1. As such it is only expected to build and run without issue on that version or later.
 
 ## Recommended reading:
 
