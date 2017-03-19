@@ -37,8 +37,10 @@ public class GameServerTest : MonoBehaviour {
 	// Various callback functions that Steam will call to let us know about events related to our
 	// connection to the Steam servers for authentication purposes.
 	//
+
 	// Tells us when we have successfully connected to Steam
 	protected Callback<SteamServersConnected_t> m_CallbackSteamServersConnected;
+#if DISABLED
 
 	// Tells us when there was a failure to connect to Steam
 	protected Callback<SteamServerConnectFailure_t> m_CallbackSteamServersConnectFailure;
@@ -59,6 +61,7 @@ public class GameServerTest : MonoBehaviour {
 	// client connection state
 	protected Callback<P2PSessionRequest_t> m_CallbackP2PSessionRequest;
 	protected Callback<P2PSessionConnectFail_t> m_CallbackP2PSessionConnectFail;
+#endif
 
 	public string m_strServerName = "Test Server";
 	public string m_strMapName = "Milky Way";
@@ -69,6 +72,7 @@ public class GameServerTest : MonoBehaviour {
 
 	private void OnEnable() {
 		m_CallbackSteamServersConnected = Callback<SteamServersConnected_t>.CreateGameServer(OnSteamServersConnected);
+#if DISABLED
 		m_CallbackSteamServersConnectFailure = Callback<SteamServerConnectFailure_t>.CreateGameServer(OnSteamServersConnectFailure);
 		m_CallbackSteamServersDisconnected = Callback<SteamServersDisconnected_t>.CreateGameServer(OnSteamServersDisconnected);
 		m_CallbackPolicyResponse = Callback<GSPolicyResponse_t>.CreateGameServer(OnPolicyResponse);
@@ -76,6 +80,7 @@ public class GameServerTest : MonoBehaviour {
 		m_CallbackGSAuthTicketResponse = Callback<ValidateAuthTicketResponse_t>.CreateGameServer(OnValidateAuthTicketResponse);
 		m_CallbackP2PSessionRequest = Callback<P2PSessionRequest_t>.CreateGameServer(OnP2PSessionRequest);
 		m_CallbackP2PSessionConnectFail = Callback<P2PSessionConnectFail_t>.CreateGameServer(OnP2PSessionConnectFail);
+#endif
 
 		m_bInitialized = false;
 		m_bConnectedToSteam = false;
@@ -95,7 +100,8 @@ public class GameServerTest : MonoBehaviour {
 			Debug.Log("SteamGameServer_Init call failed");
 			return;
 		}
-
+		print("Initialized");
+		
 		// Set the "game dir".
 		// This is currently required for all games.  However, soon we will be
 		// using the AppID for most purposes, and this string will only be needed
@@ -126,16 +132,25 @@ public class GameServerTest : MonoBehaviour {
 	}
 
 	private void OnDisable() {
+		if(!m_bInitialized) {
+			return;
+		}
+		
+
 		// Notify Steam master server we are going offline
 #if USE_GS_AUTH_API
 		SteamGameServer.EnableHeartbeats(false);
 #endif
 
+		m_CallbackSteamServersConnected.Dispose();
 		// Disconnect from the steam servers
 		SteamGameServer.LogOff();
 
+
+
 		// release our reference to the steam client library
 		GameServer.Shutdown();
+		m_bInitialized = false;
 
 		Debug.Log("Shutdown.");
 	}
@@ -165,6 +180,7 @@ public class GameServerTest : MonoBehaviour {
 		SendUpdatedServerDetailsToSteam();
 	}
 
+#if DISABLED
 	//-----------------------------------------------------------------------------
 	// Purpose: Called when an attempt to login to Steam fails
 	//-----------------------------------------------------------------------------
@@ -264,6 +280,7 @@ public class GameServerTest : MonoBehaviour {
 			}
 		}*/
 	}
+#endif
 
 
 	//-----------------------------------------------------------------------------
