@@ -125,7 +125,7 @@ public class GameServerTest : MonoBehaviour {
 		// We want to actively update the master server with our presence so players can
 		// find us via the steam matchmaking/server browser interfaces
 #if USE_GS_AUTH_API
-		SteamGameServer.EnableHeartbeats(true);
+		SteamGameServer.SetAdvertiseServerActive(true);
 #endif
 
 		Debug.Log("Started.");
@@ -139,7 +139,7 @@ public class GameServerTest : MonoBehaviour {
 
 		// Notify Steam master server we are going offline
 #if USE_GS_AUTH_API
-		SteamGameServer.EnableHeartbeats(false);
+		SteamGameServer.SetAdvertiseServerActive(false);
 #endif
 
 		m_CallbackSteamServersConnected.Dispose();
